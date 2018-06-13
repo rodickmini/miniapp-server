@@ -1,11 +1,16 @@
 const Koa = require('koa')
-const app = new Koa()
-const fs = require('fs.promised')
+const debug = require('debug')
+const ioredis = require('koa-2-ioredis')
+const router = require('./router/router.js')
 
-app.use(async ctx => {
-  ctx.body = '<p>123</p>'
-})
+const app = new Koa()
+
+app.use(ioredis())
+
+app
+  .use(router.routes())
+  .use(router.allowedMethods())
 
 app.listen(3000)
 
-console.log('server listen on port 3000...')
+console.info('server listen on port 3000...')
