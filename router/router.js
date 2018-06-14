@@ -3,7 +3,9 @@ const hashController = require('../controller/hash')
 
 const router = new Router()
 
-router.get('/hash/:lat/:lon/:username', hashController.addMember)
+router.put('/member', hashController.addMember) // @params {lat: , lon: , user_info: {}} @return geohash
 router.get('/geohash/:hash/members', hashController.getMembers)
+
+
 
 module.exports = router
