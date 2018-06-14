@@ -16,16 +16,15 @@ const addMember = async (ctx, next) => {
 }
 
 const getMembers = async (ctx, next) => {
-  const members = await ctx.redis.smembers(`pos:geohash:${ctx.params.hash}`)
-  debug(members)
-  const json = members.map(m => {
+  const membersArr = await ctx.redis.smembers(`pos:geohash:${ctx.params.hash}`)
+  const members = membersArr.map(m => {
     return JSON.parse(m)
   })
-  debug(json)
+  debug(members)
   ctx.body = {
     code: 0,
     data: {
-      members: json
+      members
     }
   }
 }
