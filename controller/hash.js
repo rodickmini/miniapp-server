@@ -6,7 +6,7 @@ const addMember = async (ctx, next) => {
   const hash = geohash.encode(lat, lon)
   debug('userinfo: ', userinfo)
   debug(hash)
-  await ctx.redis.sadd(hash, JSON.stringify(userinfo))
+  await ctx.redis.sadd(`pos:geohash:${hash}`, JSON.stringify(userinfo))
   ctx.body = {
     code: 0,
     data: {
@@ -16,7 +16,7 @@ const addMember = async (ctx, next) => {
 }
 
 const getMembers = async (ctx, next) => {
-  const members = await ctx.redis.smembers(ctx.params.hash)
+  const members = await ctx.redis.smembers(`pos:geohash:${ctx.params.hash}`)
   debug(members)
   const json = members.map(m => {
     return JSON.parse(m)
