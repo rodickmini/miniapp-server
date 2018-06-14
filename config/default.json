@@ -3,5 +3,10 @@
     "host": "127.0.0.1",
     "port": 6379,
     "password": 123456
+  },
+  "mongo": {
+    "uri": "mongodb://127.0.0.1:27017/yimi",
+    "user": "",
+    "pass": ""
   }
 }
